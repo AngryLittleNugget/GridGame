@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c2d76d6ea4a9974b9ec955810efe5b5, type: 3}
+  m_Name: Level1
+  m_EditorClassIdentifier: 
+  wallTileIndicies: 01000000110000002100000020000000410000004000000081000000710000006100000060000000050000001500000025000000420000004300000044000000450000008500000075000000650000008e0000007e0000006e0000006f0000000e0000001e0000002e0000002f0000004f0000004e0000004d0000004c0000004b0000004a00000049000000
+  enemyIndicies: 1a000000
+  teleportIndicies: 330000005e000000
+  teleporters:
+  - {fileID: 0}
+  - {fileID: 0}
+  player: {fileID: 5011351855326676296, guid: a67140c9c4fce5845a95ff17fb8f8196, type: 3}
+  playerSpawnPOS: 52
+  signs:
+  - tileIndex: 25
+    signText: Well Howdy doo.
+  - tileIndex: 122
+    signText: This is a story all about how
+  levelExitPOS: 63
+  width: 16
+  height: 9
