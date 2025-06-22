@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class Tile : MonoBehaviour
@@ -9,6 +9,8 @@ public class Tile : MonoBehaviour
     [SerializeField] GameObject _stamp;
     private SpriteRenderer _spriteRenderer;
     private Tile _currentSelection;
+    public int Index { get; set; }
+    
 
     private void Awake()
     {
@@ -19,13 +21,15 @@ public class Tile : MonoBehaviour
 
     {
         _spriteRenderer.color = isOffset ? _baseColor : _offsetColor;
+        
     }
 
     private void OnMouseEnter()
     {
         _highlight.SetActive(true);
-        _currentSelection = GetComponentInParent<Tile>();
-        Debug.Log($"{_currentSelection.name}");
+        _currentSelection = GetComponent<Tile>();
+       Debug.Log($"{_currentSelection.name}, Index: {Index}");
+        
     }
 
     private void OnMouseExit()
@@ -35,7 +39,6 @@ public class Tile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //Instantiate(_stamp, _currentSelection.transform.position, Quaternion.identity);
         Instantiate(_stamp, _currentSelection.transform.position, Quaternion.identity);
     }
 
