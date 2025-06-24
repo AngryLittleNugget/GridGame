@@ -42,11 +42,13 @@ public class PlayerMove : MonoBehaviour
             {
                 Move(inputDir); //5: If IsBlocked returns false, run move code.
                                 //And if there is no interactable, move.
+                Debug.Log("");
             }
-            else
+           /* else
             {
                 OnPlayerMove?.Invoke();
-            }
+                Debug.Log("OnPlayerMove fired from else");
+            } */
         }
 
         // Boundary check
@@ -65,6 +67,7 @@ public class PlayerMove : MonoBehaviour
         StartCoroutine(MoveToSquare(_currentPOS, _targetPOS, moveDuration));
         _currentPOS = _targetPOS;
         OnPlayerMove?.Invoke();
+        Debug.Log("OnPlayerMove fired from move");
     }
 
     private bool IsBlocked(Vector2Int dir) //3: So it just... gets the variable from the freakin' aether.  That's just what happens apparently.
@@ -77,16 +80,13 @@ public class PlayerMove : MonoBehaviour
             Interactable interactable = hit.GetComponent<Interactable>(); 
             if (interactable != null)
             {
-                Debug.Log("Interactable is not null");
                 bool success = interactable.Interact();
                 if (!success)
                 {
-                    Debug.Log("Interaction failed, move blocked.");
                     return true;
                 }
                 return false;
             }
-            Debug.Log("Interactable is null");
             return true;
         }
         return false;

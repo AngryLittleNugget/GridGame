@@ -40,7 +40,6 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         mainCamera.transform.position = new Vector3(_width / 2 -.5f, (float) _height / 2 -.5f, -10);
-        Debug.Log($"Grid is {_width * _height} squares big.");
     }
 
 }

@@ -50,7 +50,6 @@ public class Enemy : Interactable
             if (isInteractable != null)
             {
                 moveSpeed *= -1;
-                Debug.Log("At least it works");
                 return;
             }
             else if (hit.CompareTag("Player"))

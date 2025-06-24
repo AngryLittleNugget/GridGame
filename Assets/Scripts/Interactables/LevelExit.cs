@@ -10,7 +10,6 @@ public class LevelExit : Interactable
 
     public override bool Interact()
     {
-        Debug.Log("Suckle heartily on mine phallus, for you have been vanquished biznitch.");
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(sceneIndex + 1);
 

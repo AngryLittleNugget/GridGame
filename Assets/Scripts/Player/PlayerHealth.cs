@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour 
 {
-    private int _health = 4;
-    public int Health
+    public static event System.Action OnDamage;
+    private float _health = 4;
+    public float maxHealth =4;
+    public float Health
     {
         get { return _health; }//
         set
@@ -33,5 +35,6 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
+        OnDamage?.Invoke();
     }
 }
