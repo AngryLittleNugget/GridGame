@@ -12,6 +12,10 @@ public class Enemy : Interactable
     {
         _gridManager = FindFirstObjectByType<GridManager>();
         _currentPOS = gameObject.transform.position;
+          if (_gridManager == null)
+        {
+            Debug.Log("Grid Manager null in Enemy");
+        }
     }
     private void Update()
     {
@@ -20,6 +24,7 @@ public class Enemy : Interactable
         {
             Destroy(gameObject);
         }
+      
     }
 
     private void OnEnable()
@@ -58,9 +63,12 @@ public class Enemy : Interactable
                 pHealth.TakeDamage(1);
             }
         }
-         Vector3 _targetPOS = _currentPOS + movement;
-        StartCoroutine(MoveToSquare(_currentPOS, _targetPOS, moveDuration));
-        _currentPOS = _targetPOS; 
+        else
+        {
+            Vector3 _targetPOS = _currentPOS + movement;
+            StartCoroutine(MoveToSquare(_currentPOS, _targetPOS, moveDuration));
+            _currentPOS = _targetPOS;
+        }
     }
     
        private IEnumerator MoveToSquare(Vector3 _currentPOS, Vector3 _targetPOS, float moveDuration)

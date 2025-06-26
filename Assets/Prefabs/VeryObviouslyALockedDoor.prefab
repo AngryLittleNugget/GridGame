@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5605198883036253053}
   - component: {fileID: 8778484277579667438}
   - component: {fileID: 3234273803593113529}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: VeryObviouslyALockedDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
