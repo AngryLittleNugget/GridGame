@@ -40,7 +40,7 @@ public class Enemy : Interactable
 
     private void Move()
     {
-        //Vector3 movement = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
+        Debug.Log("Move is firing");
         Vector3 movement = new Vector3(moveSpeed, 0, 0);
         Vector2 checkPos = (Vector2)transform.position + (Vector2)movement;
         Collider2D hit = Physics2D.OverlapPoint(checkPos, obstacleLayer);

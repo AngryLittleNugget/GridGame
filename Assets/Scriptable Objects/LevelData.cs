@@ -7,6 +7,7 @@ public class LevelData : ScriptableObject
     public List<int> wallTileIndicies = new List<int>();
     public List<int> enemyIndicies = new List<int>();
     public List<int> teleportIndicies = new List<int>();
+    public List<int> doorIndicies = new List<int>();
     public GameObject[] teleporters;
     public GameObject player;
     public int playerSpawnPOS;

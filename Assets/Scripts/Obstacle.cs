@@ -9,6 +9,7 @@ public class Obstacle : MonoBehaviour
     [SerializeField] GameObject teleporter;
     [SerializeField] GameObject[] item;
     [SerializeField] GameObject player;
+    [SerializeField] GameObject doors;
     private Teleporter teleporterData;
     LevelData levelData;
     [SerializeField] GameObject levelExit;
@@ -26,6 +27,7 @@ public class Obstacle : MonoBehaviour
         SignSpawn();
         TeleporterSpawn();
         ItemSpawn();
+        DoorSpawn();
         Instantiate(levelExit, _gridManager.tileArray[levelData.levelExitPOS].transform.position, Quaternion.identity);
         Instantiate(player, _gridManager.tileArray[levelData.playerSpawnPOS].transform.position, Quaternion.identity);
     }
@@ -100,8 +102,8 @@ public class Obstacle : MonoBehaviour
             thisIndex += 1;
         }
     }
-    
-       void ItemSpawn()
+
+    void ItemSpawn()
     {
         foreach (LevelData.ItemPlacementData itemData in levelData.items)
         {
@@ -116,6 +118,20 @@ public class Obstacle : MonoBehaviour
             GameObject spawnedItemGO = Instantiate(item[specificItemIndex], spawnPOS, Quaternion.identity);
             spawnedItemGO.name = $"Item {tileIndex}";
             Key keyComponent = spawnedItemGO.GetComponent<Key>();
+        }
+    }
+    
+    void DoorSpawn()
+    {
+        foreach (int tileIndex in levelData.doorIndicies)
+        {
+            if (tileIndex < 0 || tileIndex > _gridManager.tileArray.Length)
+            {
+                Debug.LogWarning($"Invalid tile index: {tileIndex}");
+                continue;
+            }
+            Vector3 spawnPOS = _gridManager.tileArray[tileIndex].transform.position;
+            Instantiate(doors, spawnPOS, Quaternion.identity);
         }
     }
 }
