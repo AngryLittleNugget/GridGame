@@ -7,6 +7,7 @@ public class Obstacle : MonoBehaviour
     [SerializeField] GameObject wall;
     [SerializeField] GameObject signPrefab;
     [SerializeField] GameObject teleporter;
+    [SerializeField] GameObject[] item;
     [SerializeField] GameObject player;
     private Teleporter teleporterData;
     LevelData levelData;
@@ -24,6 +25,7 @@ public class Obstacle : MonoBehaviour
         EnemySpawn();
         SignSpawn();
         TeleporterSpawn();
+        ItemSpawn();
         Instantiate(levelExit, _gridManager.tileArray[levelData.levelExitPOS].transform.position, Quaternion.identity);
         Instantiate(player, _gridManager.tileArray[levelData.playerSpawnPOS].transform.position, Quaternion.identity);
     }
@@ -96,9 +98,24 @@ public class Obstacle : MonoBehaviour
             spawnedTeleporterScript.teleportArrayIndex = thisIndex;
             levelData.teleporters[thisIndex] = spawnedTeleporter;
             thisIndex += 1;
-
-
         }
     }
     
+       void ItemSpawn()
+    {
+        foreach (LevelData.ItemPlacementData itemData in levelData.items)
+        {
+            int tileIndex = itemData.tileIndex;
+            int specificItemIndex = itemData.itemIndex;
+            if (tileIndex < 0 || tileIndex > _gridManager.tileArray.Length)
+            {
+                Debug.LogWarning($"Invalid index: {tileIndex}");
+                continue;
+            }
+            Vector3 spawnPOS = _gridManager.tileArray[tileIndex].transform.position;
+            GameObject spawnedItemGO = Instantiate(item[specificItemIndex], spawnPOS, Quaternion.identity);
+            spawnedItemGO.name = $"Item {tileIndex}";
+            Key keyComponent = spawnedItemGO.GetComponent<Key>();
+        }
+    }
 }

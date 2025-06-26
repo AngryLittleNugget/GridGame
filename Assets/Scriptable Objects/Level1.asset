@@ -25,6 +25,9 @@ MonoBehaviour:
     signText: Well Howdy doo.
   - tileIndex: 122
     signText: This is a story all about how
+  items:
+  - tileIndex: 0
+    itemIndex: 12
   levelExitPOS: 63
   width: 16
   height: 9

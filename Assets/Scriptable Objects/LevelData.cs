@@ -18,7 +18,14 @@ public class LevelData : ScriptableObject
         [TextArea(3, 5)]
         public string signText;
     }
+    [System.Serializable]
+    public class ItemPlacementData
+    {
+        public int tileIndex;
+        public int itemIndex;
+    }
     public List<SignPlacementData> signs = new List<SignPlacementData>();
+    public List<ItemPlacementData> items = new List<ItemPlacementData>();
      public int levelExitPOS;
     public int width;
     public int height;
