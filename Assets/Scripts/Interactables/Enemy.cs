@@ -1,18 +1,29 @@
 using UnityEngine;
 using System.Collections;
 
+public enum Directions
+{
+    Right,
+    Up,
+    Left,
+    Down
+}
+
 public class Enemy : Interactable
 {
     private Vector3 _currentPOS;
+    [SerializeField] private int currentDirection;
     [SerializeField] private LayerMask obstacleLayer;
     [SerializeField] float moveDuration;
+    [SerializeField] Directions moveDirection;
     int moveSpeed = 1;
     private GridManager _gridManager;
+
     private void Awake()
     {
         _gridManager = FindFirstObjectByType<GridManager>();
         _currentPOS = gameObject.transform.position;
-          if (_gridManager == null)
+        if (_gridManager == null)
         {
             Debug.Log("Grid Manager null in Enemy");
         }
@@ -24,7 +35,7 @@ public class Enemy : Interactable
         {
             Destroy(gameObject);
         }
-      
+
     }
 
     private void OnEnable()
@@ -45,8 +56,24 @@ public class Enemy : Interactable
 
     private void Move()
     {
+        
         Debug.Log("Move is firing");
-        Vector3 movement = new Vector3(moveSpeed, 0, 0);
+        Vector3 movement = new Vector3 (0,0,0);
+        switch (moveDirection)
+        {
+            case Directions.Right:
+                movement = new Vector3(moveSpeed, 0, 0);
+                break;
+            case Directions.Up:
+                movement = new Vector3(0, moveSpeed, 0);
+                break;
+            case Directions.Left:
+                movement = new Vector3(-moveSpeed, 0, 0);
+                break;
+            case Directions.Down:
+                movement = new Vector3(0, -moveSpeed, 0);
+                break;
+        }
         Vector2 checkPos = (Vector2)transform.position + (Vector2)movement;
         Collider2D hit = Physics2D.OverlapPoint(checkPos, obstacleLayer);
         if (hit != null)
@@ -54,7 +81,7 @@ public class Enemy : Interactable
             Interactable isInteractable = hit.GetComponent<Interactable>();
             if (isInteractable != null)
             {
-                moveSpeed *= -1;
+                moveDirection = (Directions) (((int) moveDirection + 1) % 4);
                 return;
             }
             else if (hit.CompareTag("Player"))
@@ -70,8 +97,8 @@ public class Enemy : Interactable
             _currentPOS = _targetPOS;
         }
     }
-    
-       private IEnumerator MoveToSquare(Vector3 _currentPOS, Vector3 _targetPOS, float moveDuration)
+
+    private IEnumerator MoveToSquare(Vector3 _currentPOS, Vector3 _targetPOS, float moveDuration)
     {
         float elapsed = 0;
         while (_currentPOS != _targetPOS)
@@ -81,6 +108,6 @@ public class Enemy : Interactable
             elapsed += Time.deltaTime;
             yield return null;
         }
-        
-    } 
+
+    }
 }

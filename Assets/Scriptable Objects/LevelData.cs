@@ -7,10 +7,15 @@ public class LevelData : ScriptableObject
     public List<int> wallTileIndicies = new List<int>();
     public List<int> enemyIndicies = new List<int>();
     public List<int> teleportIndicies = new List<int>();
-    public List<int> doorIndicies = new List<int>();
     public GameObject[] teleporters;
     public GameObject player;
     public int playerSpawnPOS;
+    [System.Serializable]
+    public class DoorPlacementData
+    {
+        public string itemNeeded;
+        public int tileIndex;
+    }
 
     [System.Serializable]
     public class SignPlacementData
@@ -24,9 +29,11 @@ public class LevelData : ScriptableObject
     {
         public int tileIndex;
         public int itemIndex;
+        public string itemName;
     }
     public List<SignPlacementData> signs = new List<SignPlacementData>();
     public List<ItemPlacementData> items = new List<ItemPlacementData>();
+    public List<DoorPlacementData> doors = new List<DoorPlacementData>();
      public int levelExitPOS;
     public int width;
     public int height;

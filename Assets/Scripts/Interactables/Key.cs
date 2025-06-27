@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Key : Interactable
 {
-    public string keyName = "Key";
+    public string keyName;
     void Start()
     {
 
@@ -16,7 +16,7 @@ public class Key : Interactable
     public override bool Interact()
     {
         Debug.Log("Grabbing Key");
-        InventoryManagement.Instance.AddItem("Key");
+        InventoryManagement.Instance.AddItem(keyName);
         Destroy(this.gameObject);
         return true;
     }

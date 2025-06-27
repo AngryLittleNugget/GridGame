@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class LockedDoor : Interactable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private GridManager gridManager;
+    public string itemNeeded;
     void Start()
     {
-
+        gridManager = FindFirstObjectByType<GridManager>();
     }
 
     // Update is called once per frame
@@ -16,7 +17,7 @@ public class LockedDoor : Interactable
 
     public override bool Interact()
     {
-        if (InventoryManagement.Instance.HasItem("Key"))
+        if (InventoryManagement.Instance.HasItem(itemNeeded))
         {
             Destroy(gameObject);
             return true;

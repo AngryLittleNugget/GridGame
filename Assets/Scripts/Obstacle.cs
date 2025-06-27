@@ -118,20 +118,25 @@ public class Obstacle : MonoBehaviour
             GameObject spawnedItemGO = Instantiate(item[specificItemIndex], spawnPOS, Quaternion.identity);
             spawnedItemGO.name = $"Item {tileIndex}";
             Key keyComponent = spawnedItemGO.GetComponent<Key>();
+            keyComponent.keyName = itemData.itemName;
         }
     }
     
     void DoorSpawn()
     {
-        foreach (int tileIndex in levelData.doorIndicies)
+        foreach (LevelData.DoorPlacementData doorData in levelData.doors)
         {
+            int tileIndex = doorData.tileIndex;
             if (tileIndex < 0 || tileIndex > _gridManager.tileArray.Length)
             {
                 Debug.LogWarning($"Invalid tile index: {tileIndex}");
                 continue;
             }
             Vector3 spawnPOS = _gridManager.tileArray[tileIndex].transform.position;
-            Instantiate(doors, spawnPOS, Quaternion.identity);
+            GameObject spawnedDoorGO = Instantiate(doors, spawnPOS, Quaternion.identity);
+            LockedDoor doorComponent = spawnedDoorGO.GetComponent<LockedDoor>();
+            doorComponent.itemNeeded = doorData.itemNeeded;
+
         }
     }
 }
