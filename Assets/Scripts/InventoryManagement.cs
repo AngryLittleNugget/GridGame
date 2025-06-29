@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class InventoryManagement : MonoBehaviour
 {
     public static InventoryManagement Instance;
-    private Dictionary<string, int> inventory = new Dictionary<string, int>();
+    public Dictionary<string, int> inventory = new Dictionary<string, int>();
     void Awake()
     {
         if (Instance == null)
@@ -18,8 +18,20 @@ public class InventoryManagement : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            foreach (KeyValuePair<string, int> KVP in inventory)
+            {
+                Debug.Log($"Item: {KVP.Key} x {KVP.Value} ");
+            }
+        }
+    }
+
     public void AddItem(string itemName)
     {
+        Debug.Log("AddItem is firing");
         if (inventory.ContainsKey(itemName))
         {
             inventory[itemName]++;
@@ -27,6 +39,7 @@ public class InventoryManagement : MonoBehaviour
         else
         {
             inventory[itemName] = 1;
+            Debug.Log($"{itemName} added to inventory.");
         }
     }
     public bool HasItem(string itemName)

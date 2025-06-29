@@ -117,8 +117,8 @@ public class Obstacle : MonoBehaviour
             Vector3 spawnPOS = _gridManager.tileArray[tileIndex].transform.position;
             GameObject spawnedItemGO = Instantiate(item[specificItemIndex], spawnPOS, Quaternion.identity);
             spawnedItemGO.name = $"Item {tileIndex}";
-            Key keyComponent = spawnedItemGO.GetComponent<Key>();
-            keyComponent.keyName = itemData.itemName;
+            Item itemComponent = spawnedItemGO.GetComponent<Item>();
+            itemComponent.itemName = itemData.itemName;
         }
     }
     
