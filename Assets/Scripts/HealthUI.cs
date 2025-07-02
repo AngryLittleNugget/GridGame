@@ -10,12 +10,12 @@ public class HealthUI : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerHealth.OnDamage += HealthBarUpdate;
+        PlayerHealth.HealthChange += HealthBarUpdate;
     }
 
     void OnDisable()
     {
-        PlayerHealth.OnDamage -= HealthBarUpdate;
+        PlayerHealth.HealthChange -= HealthBarUpdate;
     }
     void Start()
     {

@@ -28,7 +28,8 @@ public class Obstacle : MonoBehaviour
         TeleporterSpawn();
         ItemSpawn();
         DoorSpawn();
-        Instantiate(levelExit, _gridManager.tileArray[levelData.levelExitPOS].transform.position, Quaternion.identity);
+        // Instantiate(levelExit, _gridManager.tileArray[levelData.levelExitPOS].transform.position, Quaternion.identity);
+        LevelExitSpawn();
         Instantiate(player, _gridManager.tileArray[levelData.playerSpawnPOS].transform.position, Quaternion.identity);
     }
 
@@ -121,7 +122,7 @@ public class Obstacle : MonoBehaviour
             itemComponent.itemName = itemData.itemName;
         }
     }
-    
+
     void DoorSpawn()
     {
         foreach (LevelData.DoorPlacementData doorData in levelData.doors)
@@ -136,6 +137,24 @@ public class Obstacle : MonoBehaviour
             GameObject spawnedDoorGO = Instantiate(doors, spawnPOS, Quaternion.identity);
             LockedDoor doorComponent = spawnedDoorGO.GetComponent<LockedDoor>();
             doorComponent.itemNeeded = doorData.itemNeeded;
+
+        }
+    }
+    
+    void LevelExitSpawn()
+    {
+        foreach (LevelData.LevelExitPlacementData levelExits in levelData.levelExits)
+        {
+            int tileIndex = levelExits.tileIndex;
+            if (tileIndex < 0 || tileIndex > _gridManager.tileArray.Length)
+            {
+                Debug.LogWarning($"Invalid tile index: {tileIndex}");
+                continue;
+            }
+            Vector3 spawnPOS = _gridManager.tileArray[tileIndex].transform.position;
+            GameObject spawnedLEGO = Instantiate(levelExit, spawnPOS, Quaternion.identity);
+            LevelExit levelExitComponent = spawnedLEGO.GetComponent<LevelExit>();
+            levelExitComponent.levelIndex = levelExits.levelTarget;
 
         }
     }

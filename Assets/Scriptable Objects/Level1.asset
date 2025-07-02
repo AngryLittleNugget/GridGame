@@ -34,6 +34,8 @@ MonoBehaviour:
     tileIndex: 85
   - itemNeeded: BlueKey
     tileIndex: 77
-  levelExitPOS: 63
+  levelExits:
+  - tileIndex: 63
+    levelTarget: 2
   width: 16
   height: 9

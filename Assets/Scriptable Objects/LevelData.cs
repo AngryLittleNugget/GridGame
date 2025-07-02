@@ -31,10 +31,17 @@ public class LevelData : ScriptableObject
         public int itemIndex;
         public string itemName;
     }
+    [System.Serializable]
+    public class LevelExitPlacementData
+    {
+        public int tileIndex;
+        public int levelTarget;
+    }
     public List<SignPlacementData> signs = new List<SignPlacementData>();
     public List<ItemPlacementData> items = new List<ItemPlacementData>();
     public List<DoorPlacementData> doors = new List<DoorPlacementData>();
-     public int levelExitPOS;
+    public List<LevelExitPlacementData> levelExits = new List<LevelExitPlacementData>();
+     
     public int width;
     public int height;
     

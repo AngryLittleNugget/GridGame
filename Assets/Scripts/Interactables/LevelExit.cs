@@ -3,15 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class LevelExit : Interactable
 {
-    void Update()
-    {
-  
-    }
+    public int levelIndex;
 
     public override bool Interact()
     {
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(sceneIndex + 1);
+        SceneManager.LoadScene(levelIndex);
 
         return true;
     }

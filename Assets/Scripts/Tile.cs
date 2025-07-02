@@ -24,13 +24,13 @@ public class Tile : MonoBehaviour
         
     }
 
-   /* private void OnMouseEnter()
+    private void OnMouseEnter()
     {
         _highlight.SetActive(true);
         _currentSelection = GetComponent<Tile>();
        Debug.Log($"{_currentSelection.name}, Index: {Index}");
         
-    } */
+    } 
 
     private void OnMouseExit()
     {

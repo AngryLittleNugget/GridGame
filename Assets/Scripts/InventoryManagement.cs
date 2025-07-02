@@ -1,31 +1,73 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class InventoryManagement : MonoBehaviour
 {
     public static InventoryManagement Instance;
     public Dictionary<string, int> inventory = new Dictionary<string, int>();
+    GameObject inventoryWindow;
+    private TextMeshProUGUI inventoryText;
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(this);
+            Destroy(this.gameObject);
+            Debug.Log("Inventory manager destroyed in awake");
         }
+        
+        Debug.Log($"Inventory text null: {inventoryText == null}");
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void Start()
+    {
+  
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            foreach (KeyValuePair<string, int> KVP in inventory)
+            if (inventoryWindow.activeInHierarchy == false)
             {
-                Debug.Log($"Item: {KVP.Key} x {KVP.Value} ");
+                inventoryWindow.SetActive(true);
+                foreach (KeyValuePair<string, int> KVP in inventory)
+                {
+                    inventoryText.text = $"Item: {KVP.Key} x {KVP.Value} ";
+                }
             }
+             else if (inventoryWindow.activeInHierarchy == true)
+            {
+                inventoryWindow.SetActive(false);
+            }
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+              inventoryWindow = GameObject.FindWithTag("UI Inventory");
+        /* Transform iWTransform = inventoryWindow.transform;
+         inventoryText = iWTransform.Find("InventoryTMP").GetComponent<TextMeshProUGUI>(); */
+        inventoryText = inventoryWindow.GetComponentInChildren<TextMeshProUGUI>();
+        if (inventoryWindow.activeInHierarchy == true)
+        {
+            inventoryWindow.SetActive(false);
         }
     }
 
