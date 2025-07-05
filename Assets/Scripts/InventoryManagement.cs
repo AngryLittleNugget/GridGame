@@ -9,6 +9,7 @@ public class InventoryManagement : MonoBehaviour
     public Dictionary<string, int> inventory = new Dictionary<string, int>();
     GameObject inventoryWindow;
     private TextMeshProUGUI inventoryText;
+    public HashSet<string> itemsToSkip = new HashSet<string>();
     void Awake()
     {
         if (Instance == null)
@@ -35,10 +36,6 @@ public class InventoryManagement : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    void Start()
-    {
-  
-    }
 
     void Update()
     {
@@ -47,12 +44,14 @@ public class InventoryManagement : MonoBehaviour
             if (inventoryWindow.activeInHierarchy == false)
             {
                 inventoryWindow.SetActive(true);
+                string full_text = "";
                 foreach (KeyValuePair<string, int> KVP in inventory)
                 {
-                    inventoryText.text = $"Item: {KVP.Key} x {KVP.Value} ";
+                    full_text += $"Item: {KVP.Key} x {KVP.Value} \n";
                 }
+                inventoryText.text = full_text;
             }
-             else if (inventoryWindow.activeInHierarchy == true)
+            else if (inventoryWindow.activeInHierarchy == true)
             {
                 inventoryWindow.SetActive(false);
             }
@@ -71,7 +70,7 @@ public class InventoryManagement : MonoBehaviour
         }
     }
 
-    public void AddItem(string itemName)
+    public void AddItem(string itemName, string itemHashID)
     {
         Debug.Log("AddItem is firing");
         if (inventory.ContainsKey(itemName))
@@ -83,6 +82,9 @@ public class InventoryManagement : MonoBehaviour
             inventory[itemName] = 1;
             Debug.Log($"{itemName} added to inventory.");
         }
+
+        itemsToSkip.Add(itemHashID);
+        Debug.Log($"{itemHashID} added to list");
     }
     public bool HasItem(string itemName)
     {

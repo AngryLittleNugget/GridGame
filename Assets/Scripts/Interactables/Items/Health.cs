@@ -11,7 +11,7 @@ public class Health : Item
     public override bool Interact()
     {
         Debug.Log($"Grabbing {itemName}");
-        InventoryManagement.Instance.AddItem(itemName);
+      //  InventoryManagement.Instance.AddItem(itemName, itemHashID);
         playerHealth.HealHealth(1);
         Destroy(this.gameObject);
         return true;

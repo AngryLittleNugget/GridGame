@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Obstacle : MonoBehaviour
 {
@@ -119,7 +120,18 @@ public class Obstacle : MonoBehaviour
             GameObject spawnedItemGO = Instantiate(item[specificItemIndex], spawnPOS, Quaternion.identity);
             spawnedItemGO.name = $"Item {tileIndex}";
             Item itemComponent = spawnedItemGO.GetComponent<Item>();
+            itemComponent.itemHashID = $"{SceneManager.GetActiveScene().name}_{spawnPOS}";
             itemComponent.itemName = itemData.itemName;
+            if (InventoryManagement.Instance.itemsToSkip.Contains(itemComponent.itemHashID))
+            {
+                Debug.Log("Item shud be ded");
+                Destroy(spawnedItemGO);
+                continue;
+            }
+            else
+            {
+                Debug.Log("... AND YET IT LIIIIIIVES");
+            }
         }
     }
 
