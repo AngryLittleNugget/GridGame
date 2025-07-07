@@ -31,14 +31,18 @@ MonoBehaviour:
   - tileIndex: 22
     signText: Are you sure reading me is the most effective use of your time?
   items:
-  - tileIndex: 2
+  - tileIndex: 55
     itemIndex: 0
     itemName: RedKey
-  doors: []
+  doors:
+  - itemNeeded: CatFace Key
+    tileIndex: 50
   levelExits:
   - tileIndex: 0
     levelTarget: 1
   - tileIndex: 71
     levelTarget: 3
+  - tileIndex: 60
+    levelTarget: 5
   width: 10
   height: 10
