@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &292302934 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1605203005367720274, guid: 3bcc78c811131d34491f130336012da9, type: 3}
+  m_PrefabInstance: {fileID: 7976817703243838245}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d212324a6393de6419f1b7b500045327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +387,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 856877312275819488, guid: 8412b9c65ebc13949ad6ea52b77189de, type: 3}
     - target: {fileID: 2774429710275671200, guid: 47baeefbda6012f48b24be2807bb5cfe, type: 3}
+      propertyPath: gameOverScreen
+      value: 
+      objectReference: {fileID: 292302934}
+    - target: {fileID: 2774429710275671200, guid: 47baeefbda6012f48b24be2807bb5cfe, type: 3}
       propertyPath: item.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -403,14 +418,6 @@ PrefabInstance:
     - target: {fileID: 2659333343388689806, guid: 3bcc78c811131d34491f130336012da9, type: 3}
       propertyPath: m_Name
       value: UICanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7724113225780647767, guid: 3bcc78c811131d34491f130336012da9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7724113225780647767, guid: 3bcc78c811131d34491f130336012da9, type: 3}
-      propertyPath: m_TagString
-      value: UI Inventory
       objectReference: {fileID: 0}
     - target: {fileID: 8972372391182499272, guid: 3bcc78c811131d34491f130336012da9, type: 3}
       propertyPath: m_LocalPosition.x

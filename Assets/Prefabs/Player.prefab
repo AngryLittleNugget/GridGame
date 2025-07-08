@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5040794074733546135}
   - component: {fileID: -6444483244147652002}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,3 +158,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 4
+  isAlive: 1

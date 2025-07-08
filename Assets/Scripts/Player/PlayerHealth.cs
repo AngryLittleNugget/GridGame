@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public static event System.Action HealthChange;
+    public static event System.Action GameOver;
     private float _health = 4;
     public float maxHealth = 4;
     public float Health
@@ -16,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
 
             if (_health <= 0)
             {
-                Destroy(gameObject);
+               Destroy(gameObject);
             }
 
         }
@@ -35,7 +36,14 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
+        if (Health <= 0)
+        {
+            Debug.Log($"GameOver is null: {GameOver == null}");
+            GameOver?.Invoke();
+            Debug.Log($"GameOver is null: {GameOver == null}");
+        }
         HealthChange?.Invoke();
+        
     }
 
     public void HealHealth(int heal)

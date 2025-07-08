@@ -14,6 +14,7 @@ public class Obstacle : MonoBehaviour
     private Teleporter teleporterData;
     LevelData levelData;
     [SerializeField] GameObject levelExit;
+    [SerializeField] GameOverScreen gameOverScreen;
     /*private Vector3[] spawnPoints = new Vector3[6];
     Vector3 spawnPOS; */
     void Awake()
@@ -32,6 +33,7 @@ public class Obstacle : MonoBehaviour
         // Instantiate(levelExit, _gridManager.tileArray[levelData.levelExitPOS].transform.position, Quaternion.identity);
         LevelExitSpawn();
         Instantiate(player, _gridManager.tileArray[levelData.playerSpawnPOS].transform.position, Quaternion.identity);
+        gameOverScreen.Subscribe();
     }
 
 
