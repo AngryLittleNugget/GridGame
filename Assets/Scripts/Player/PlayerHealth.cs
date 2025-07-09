@@ -29,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log($"{Health}");
+            TakeDamage(4);
         }
     }
 

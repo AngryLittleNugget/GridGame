@@ -11,11 +11,11 @@ public class GameOverScreen : MonoBehaviour
     }
     void Start()
     {
-        //  gameOverObject = gameObject;
+        /*gameOverObject = gameObject;
         if (gameOverObject.activeInHierarchy)
         {
             gameOverObject.SetActive(false);
-        }
+        }*/
     }
 
 
@@ -27,6 +27,7 @@ public class GameOverScreen : MonoBehaviour
 
     public void Subscribe()
     {
+        PlayerHealth.GameOver -= GameOverScreenOn;
         PlayerHealth.GameOver += GameOverScreenOn;
     }
 
@@ -34,6 +35,11 @@ public class GameOverScreen : MonoBehaviour
     {
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(sceneIndex);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
 
