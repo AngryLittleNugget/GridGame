@@ -37,5 +37,9 @@ MonoBehaviour:
   levelExits:
   - tileIndex: 63
     levelTarget: 2
+  - tileIndex: 80
+    levelTarget: 2
+  - tileIndex: 48
+    levelTarget: 2
   width: 16
   height: 9

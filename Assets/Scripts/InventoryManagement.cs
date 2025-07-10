@@ -60,6 +60,7 @@ public class InventoryManagement : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log($"{scene.name}, Build Index: {scene.buildIndex}");
               inventoryWindow = GameObject.FindWithTag("UI Inventory");
         /* Transform iWTransform = inventoryWindow.transform;
          inventoryText = iWTransform.Find("InventoryTMP").GetComponent<TextMeshProUGUI>(); */
