@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -41,5 +42,7 @@ public class GameOverScreen : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+  
 }
 

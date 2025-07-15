@@ -37,9 +37,12 @@ MonoBehaviour:
   levelExits:
   - tileIndex: 63
     levelTarget: 2
+    playerSpawnPOS: 1
   - tileIndex: 80
     levelTarget: 2
+    playerSpawnPOS: 0
   - tileIndex: 48
     levelTarget: 2
+    playerSpawnPOS: 0
   width: 16
   height: 9

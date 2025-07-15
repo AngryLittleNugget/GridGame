@@ -7,8 +7,13 @@ public class PlayerMove : MonoBehaviour
     private enum PlayerState
     {
         Idle,
-        Moving
+        MovingLeft,
+        MovingUp,
+        MovingDown,
+        MovingRight
     }
+    private Animator anim;
+    private string animationName;
     private PlayerState currentState = PlayerState.Idle;
     private Vector3 _currentPOS;
     private GridManager _gridManager;
@@ -21,31 +26,66 @@ public class PlayerMove : MonoBehaviour
     {
         _gridManager = FindFirstObjectByType<GridManager>();
         _currentPOS = transform.position;
+        anim = GetComponent<Animator>();
+        anim.Play("ProtIdle");
     }
 
     void Update()
     {
-        if (currentState == PlayerState.Moving)
+        if (currentState != PlayerState.Idle)
         {
             return;
         }
         Vector2Int inputDir = Vector2Int.zero;
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) inputDir = Vector2Int.left;
-        else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) inputDir = Vector2Int.right;
-        else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) inputDir = Vector2Int.up;
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) inputDir = Vector2Int.down;
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        {
+            currentState = PlayerState.MovingLeft;
+            Vector3 facingDirection = transform.localScale;
+            inputDir = Vector2Int.left;
+            facingDirection.x = -1f;
+            transform.localScale = facingDirection;
+            animationName = "ProtSideWalk";
+
+
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        {
+            currentState = PlayerState.MovingRight;
+            Vector3 facingDirection = transform.localScale;
+            inputDir = Vector2Int.right;
+            facingDirection.x = 1f;
+            transform.localScale = facingDirection;
+            animationName = "ProtSideWalk";
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        {
+            currentState = PlayerState.MovingUp;
+            inputDir = Vector2Int.up;
+            animationName = "ProtBackWalk";
+
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+        {
+            currentState = PlayerState.MovingDown;
+            inputDir = Vector2Int.down;
+            //anim.SetBool("MovingDown", true);
+            animationName = "ProtFrontWalk";
+        }
 
         if (inputDir != Vector2Int.zero) //1:inputDir is reset to 0,0 every frame thanks to update, and then changes to 0,1, 0,-1 whatever when you press a button.
         {
             if (!IsBlocked(inputDir)) //2:silly elky learning moment.  If at any point any part of inputDir is not zero, run this.
             {
-                Move(inputDir); //5: If IsBlocked returns false, run move code.
-                                //And if there is no interactable, move.
+                Move(inputDir, animationName); //5: If IsBlocked returns false, run move code.
+                                               //And if there is no interactable, move.
                 Debug.Log("");
             }
-           /* else
+            else
             {
+                currentState = PlayerState.Idle;
+            }
+            /*{
                 OnPlayerMove?.Invoke();
                 Debug.Log("OnPlayerMove fired from else");
             } */
@@ -59,15 +99,16 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void Move(Vector2Int dir)  //Takes the input direction, which it still has time to do because it's part of the same update.
+    private void Move(Vector2Int dir, string animationName)  //Takes the input direction, which it still has time to do because it's part of the same update.
     {
-        currentState = PlayerState.Moving;
+        //currentState = PlayerState.Moving;
         Vector3 movement = new Vector3(dir.x, dir.y, 0); //Set up the inputDir to be a vector 3 to relate to the coordinate system Unity uses.
         Vector3 _targetPOS = _currentPOS + movement;  //Add the vectors, pretty sure myx knows more about that than elky.
+        anim.Play(animationName);
         StartCoroutine(MoveToSquare(_currentPOS, _targetPOS, moveDuration));
         _currentPOS = _targetPOS;
         OnPlayerMove?.Invoke();
-        Debug.Log("OnPlayerMove fired from move");
+        //Debug.Log("OnPlayerMove fired from move");
     }
 
     private bool IsBlocked(Vector2Int dir) //3: So it just... gets the variable from the freakin' aether.  That's just what happens apparently.
@@ -109,11 +150,35 @@ public class PlayerMove : MonoBehaviour
         while (elapsed < moveDuration)
         {
             transform.position = Vector3.Lerp(_currentPOS, _targetPOS, elapsed / moveDuration);
-            _currentPOS = transform.position;
+            //_currentPOS = transform.position;
             elapsed += Time.deltaTime;
             yield return null;
         }
         transform.position = _targetPOS;
-        currentState = PlayerState.Idle;
+
+        PlayerState previousState = currentState;
+
+        switch (previousState)
+        {//
+            case PlayerState.MovingDown:
+                //animationName = "ProtIdle";
+                anim.Play("ProtIdle");
+                break;
+            case PlayerState.MovingLeft:
+                //animationName = "ProtSideIdle";
+                anim.Play("ProtSideIdle");
+                break;
+            case PlayerState.MovingRight:
+                //animationName = "ProtSideIdle";
+                anim.Play("ProtSideIdle");
+                break;
+            case PlayerState.MovingUp:
+                //animationName = "ProtSideIdle";
+                anim.Play("ProtBackIdle");
+                break;
+
+        }
+         currentState = PlayerState.Idle;
+        //
     } 
 }

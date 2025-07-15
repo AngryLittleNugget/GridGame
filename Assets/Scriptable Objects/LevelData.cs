@@ -36,6 +36,7 @@ public class LevelData : ScriptableObject
     {
         public int tileIndex;
         public int levelTarget;
+        public int playerSpawnPOS;
     }
     public List<SignPlacementData> signs = new List<SignPlacementData>();
     public List<ItemPlacementData> items = new List<ItemPlacementData>();

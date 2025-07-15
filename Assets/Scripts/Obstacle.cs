@@ -12,6 +12,7 @@ public class Obstacle : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject doors;
     private Teleporter teleporterData;
+    public int playerSpawnPOS;
     LevelData levelData;
     [SerializeField] GameObject levelExit;
     [SerializeField] GameOverScreen gameOverScreen;
@@ -32,7 +33,7 @@ public class Obstacle : MonoBehaviour
         DoorSpawn();
         // Instantiate(levelExit, _gridManager.tileArray[levelData.levelExitPOS].transform.position, Quaternion.identity);
         LevelExitSpawn();
-        Instantiate(player, _gridManager.tileArray[levelData.playerSpawnPOS].transform.position, Quaternion.identity);
+        PlayerSpawn();
         gameOverScreen.Subscribe();
     }
 
@@ -154,7 +155,7 @@ public class Obstacle : MonoBehaviour
 
         }
     }
-    
+
     void LevelExitSpawn()
     {
         foreach (LevelData.LevelExitPlacementData levelExits in levelData.levelExits)
@@ -169,7 +170,22 @@ public class Obstacle : MonoBehaviour
             GameObject spawnedLEGO = Instantiate(levelExit, spawnPOS, Quaternion.identity);
             LevelExit levelExitComponent = spawnedLEGO.GetComponent<LevelExit>();
             levelExitComponent.levelIndex = levelExits.levelTarget;
+            levelExitComponent.playerSpawnPOS = levelExits.playerSpawnPOS;
 
         }
     }
+
+    private void PlayerSpawn()
+    {
+        if (PlayerLocationSpawn.Instance.playerSpawnPOS == -1)
+        {
+            Instantiate(player, _gridManager.tileArray[levelData.playerSpawnPOS].transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(player, _gridManager.tileArray[PlayerLocationSpawn.Instance.playerSpawnPOS].transform.position, Quaternion.identity);
+        }
+    }
+
+  
 }
